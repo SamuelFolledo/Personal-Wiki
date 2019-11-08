@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from wiki.models import Page
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -9,13 +9,21 @@ class PageList(ListView):
     CHALLENGES:
       1. On GET, display a homepage that shows all Pages in your wiki.
       2. Replace this CHALLENGE text with a descriptive docstring for PageList.
+        - Pagelist is a ListView that get() the 5 most recent published wikis from Wiki model and renders it in wiki/list.html
+
       3. Replace pass below with the code to render a template named `list.html`.
     """
     model = Page
+    # template_name = "wiki/list.html"
+    # context_object_name = "pages" #specify or default will be object_list
 
     def get(self, request):
         """ Returns a list of wiki pages. """
-        pass
+        # latest_wiki_list = Page.objects.order_by('-pub_date')[:5] #grab 5 most recent wikis 
+        # context = { 'latest_wiki_list': latest_wiki_list, }
+        all_pages = Page.objects.all()
+        context = { 'all_pages': all_pages }
+        return render(request, 'wiki/list.html', context) #shortcut render
 
 
 class PageDetailView(DetailView):
@@ -23,6 +31,8 @@ class PageDetailView(DetailView):
     CHALLENGES:
       1. On GET, render a template named `page.html`.
       2. Replace this docstring with a description of what thos accomplishes.
+        - PageDetailView's DetailView takes a wiki_id that was passed and get the detail of the wiki and display in detail.html,
+          if wiki does not exist, then it will raise an Http404
 
     STRETCH CHALLENGES:
       1. Import the PageForm class from forms.py.
@@ -39,7 +49,12 @@ class PageDetailView(DetailView):
 
     def get(self, request, slug):
         """ Returns a specific of wiki page by slug. """
-        pass
+        # page = Page.objects.get(slug = slug) #meredith's approach
+        page = get_object_or_404(Page, slug=slug) #django.shortcut to get if the wiki exist or not
+        context = {
+          'page': page
+        }
+        return render(request, 'wiki/detail.html', context)
 
     def post(self, request, slug):
         pass

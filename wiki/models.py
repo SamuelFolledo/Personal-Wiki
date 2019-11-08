@@ -38,7 +38,7 @@ class Page(models.Model):
         #       while time zone support is active.
         #   2. Add the ability to update the slug when the Page is edited.
         if not self.pk:  # To detect new objects, check if self.pk exists.
-            self.slug = slugify(self.title, allow_unicode=True)
+            self.slug = slugify(self.title, allow_unicode=True) #make the slug for us from Page's title
 
         # Call save on the superclass.
         return super(Page, self).save(*args, **kwargs)

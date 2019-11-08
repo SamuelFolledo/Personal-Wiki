@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views
 
 """
   CHALLENGES:
@@ -11,7 +12,10 @@ from django.urls import path
       - Test by visiting http://127.0.0.1:8000/w/title-but-replace-spaces-with-dashes in your browser.
   """
 
+app_name = 'wiki'
 urlpatterns = [
     # path('REPLACE_ME_WITH_ROOT_ROUTE', REPLACE_ME_WITH_VIEW.as_view(), name='wiki-list-page'),
     # path('REPLACE_ME_WITH_SLUG', REPLACE_ME_WITH_VIEW.as_view(), name='wiki-details-page'),
+    path('', views.PageList.as_view(), name='wiki-list-page'),
+    path('<slug>/', views.PageDetailView.as_view(), name='wiki-details-page'),
 ]
