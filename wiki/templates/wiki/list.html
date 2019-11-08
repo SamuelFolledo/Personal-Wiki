@@ -1,1 +1,15 @@
-hello world
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    {% for page in all_pages %}
+        <h2>
+            {{page.title}}
+
+            {{ page.headline|upper }}
+        </a>
+        </h2>
+        <p>{{ page.tease|truncatewords:"100" }}</p>
+    {% endfor %}
+{% endblock %}
