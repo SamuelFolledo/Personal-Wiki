@@ -1,17 +1,11 @@
-<!-- polls/templates/polls/index.html¶ -->
-{% if latest_wiki_list %}
-    <ul>
-    {% for wiki in latest_wiki_list %}
-        <li><a href="{% url 'wiki:detail' wiki.id %}">{{ wiki.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No wikis are available.</p>
-{% endif %}
 
-<!-- 
-    latest_question_list = Question.objects.order_by('-pub_date')[:5] #grab 5 most recent questions 
-    context = {
-        'latest_question_list': latest_question_list,
-    }
-    return render(request, 'polls/index.html', context) #django.shortcut render -->
+
+{% block content %}
+
+    <h1>{{ page.title }}</h1>
+    <h3>Written by: {{ page.author }}</h3>
+    <h4>Date Created: {{ page.created }}</h4>
+    <h5>Date Modified: {{ page.modified }}</h5>
+    <p>Article Text: <br> {{ page.content }}</p>
+
+{% endblock %}

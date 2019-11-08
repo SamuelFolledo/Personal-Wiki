@@ -1,15 +1,13 @@
-{% block title %}{{ section.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
 
-    {% for page in all_pages %}
-        <h2>
-            {{page.title}}
+    <h1>Wiki Articles</h1>
+    <ul>
+        {% for page in all_pages %}
+        <li><a href="{{ page.slug }}">{{ page.title }}</a></li>
+        {% empty %}
+        <li>No pages yet.</li>
+        {% endfor %}
+    </ul>
 
-            {{ page.headline|upper }}
-        </a>
-        </h2>
-        <p>{{ page.tease|truncatewords:"100" }}</p>
-    {% endfor %}
 {% endblock %}
